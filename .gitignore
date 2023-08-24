@@ -1,5 +1,8 @@
 env.json
 .vscode/
+build/
 micropython/
+dependencies/
+firmware/
 *.mpy
 mpy-cross

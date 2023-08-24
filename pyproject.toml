@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "raspberry-pi-pico"
+version = "0.1.0"
+description = "Basic starting MicroPython project on Raspberry Pi Pico"
+authors = ["Derek Maggio <derek.j.maggio@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+mpremote = "^1.20.0"
+
+
+[tool.poetry.dev-dependencies]
+mypy = "^1.5.1"
+ruff = "^0.0.285"
+black = "^23.7.0"
+
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
