@@ -1,0 +1,6 @@
+{
+    "PACKAGES": [ 
+        "https://raw.githubusercontent.com/miguelgrinberg/microdot/main/src/microdot.py",
+        "https://raw.githubusercontent.com/micropython/micropython-lib/master/python-stdlib/logging/logging.py"
+    ]
+}

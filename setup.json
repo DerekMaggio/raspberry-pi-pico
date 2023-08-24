@@ -1,6 +1,0 @@
-{
-    "PACKAGES":{ 
-        "microdot": "https://github.com/miguelgrinberg/microdot/blob/main/src/microdot.py",
-        "logging": "https://github.com/micropython/micropython-lib/blob/master/python-stdlib/logging/logging.py"
-    }
-}

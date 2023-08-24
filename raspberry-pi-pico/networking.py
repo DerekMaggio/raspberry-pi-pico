@@ -1,6 +1,8 @@
 import network
 import time
 from .config import Config
+from machine import Pin
+from time import sleep
 
 
 def setup_wifi(config: Config, max_wait: int = 10) -> None:
@@ -25,4 +27,12 @@ def setup_wifi(config: Config, max_wait: int = 10) -> None:
     else:
         print('connected')
         status = client.ifconfig()
+        led = Pin("LED", Pin.OUT)
+        for i in range(5):
+            led.toggle()
+            sleep(0.5)
+        
         print( 'ip = ' + status[0] )
+
+def get_ip():
+    return network.WLAN(network.STA_IF).ifconfig()[0]
