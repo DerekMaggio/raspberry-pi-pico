@@ -1,6 +1,6 @@
 import network
 import time
-from .config import Config
+from firmware.config import Config
 from machine import Pin
 from time import sleep
 
@@ -36,3 +36,6 @@ def setup_wifi(config: Config, max_wait: int = 10) -> None:
 
 def get_ip():
     return network.WLAN(network.STA_IF).ifconfig()[0]
+
+if __name__ == "__main__":
+    setup_wifi(Config())

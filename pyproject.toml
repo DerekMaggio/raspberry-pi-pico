@@ -1,4 +1,4 @@
-[tool.poetry]
+ [tool.poetry]
 name = "raspberry-pi-pico"
 version = "0.1.0"
 description = "Basic starting MicroPython project on Raspberry Pi Pico"

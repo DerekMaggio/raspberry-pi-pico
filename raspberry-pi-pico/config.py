@@ -7,7 +7,7 @@ class Config:
         WIFI_PASSWORD_KEY = "WIFI_PASSWORD"
       
         def __init__(self) -> None:    
-            with open("/config.json", "r") as file:
+            with open("/env.json", "r") as file:
                 content = file.read()
             
             configuration = json.loads(content)

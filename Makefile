@@ -17,7 +17,6 @@ BUILD_DIR := build
 CONFIG_DIR := config
 TOOLS_DIR := tools
 FIRMWARE_DIR := firmware
-BIN_DIR := bin
 
 
 MICROPYTHON_GITHUB := https://github.com/micropython/micropython/archive/refs/heads/master.zip
@@ -50,10 +49,6 @@ firmware:
 	@echo "Creating ${FIRMWARE_DIR} directory..."
 	@mkdir ${FIRMWARE_DIR}
 
-bin:
-	@echo "Creating ${BIN_DIR} directory..."
-	@mkdir ${BIN_DIR}
-
 tools/mpy-cross: tools
 	@echo "Getting Micropython..."
 
@@ -80,8 +75,7 @@ tools/mpy-cross: tools
 	@-rm -rf ${TOOLS_DIR}/micropython
 
 .PHONY: build
-build: tools/mpy-cross dependencies firmware bin
-	@mkdir -p $(BIN_DIR)
+build: tools/mpy-cross dependencies firmware
 	@$(foreach package,$(PACKAGES), \
 		echo "Downloading $(package) and storing to $(DEPENDENCIES_DIR)/$(shell basename $(package))"; \
 		curl -s $(package) -o $(DEPENDENCIES_DIR)/$(shell basename $(package)); \
@@ -90,7 +84,6 @@ build: tools/mpy-cross dependencies firmware bin
 		echo ; \
 	)
 
-#	@cp ${BIN_DIR}/*.mpy ${FIRMWARE_DIR}/
 	@cp -r ${PROJECT_DIR}/* ${FIRMWARE_DIR}/
 
 
@@ -134,14 +127,21 @@ pico-disconnect: setup
 
 .PHONY: pico-reset
 pico-reset: setup
-	poetry run python -m mpremote soft-reset
+	poetry run python -m mpremote reset
 
 $(DEPENDENCIES_DIR)/$(PICO_FIRMWARE_FILE_NAME): dependencies
 	curl $(PICO_FIRMWARE_DOWNLOAD_PATH) -o $(DEPENDENCIES_DIR)/$(PICO_FIRMWARE_FILE_NAME)
 
 .PHONY: pico-copy-project
 pico-copy-project: setup
-	poetry run python -m mpremote cp -r $(FIRMWARE_DIR) : + cp main.py :main.py + soft-reset + fs ls + fs ls /$(FIRMWARE_DIR)
+	@poetry run python -m mpremote \
+		cp config/env.json :env.json \
+		+ cp config/setup.json :setup.json \
+		+ cp -r $(FIRMWARE_DIR) : \
+		+ cp main.py :main.py \
+		+ fs ls \
+		+ fs ls /$(FIRMWARE_DIR) \
+		+ reset
 
 .PHONY: pico-run
 pico-reboot: setup
